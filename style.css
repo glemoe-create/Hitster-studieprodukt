@@ -1,0 +1,71 @@
+/* Generel side-styling */
+body {
+    background: radial-gradient(circle at top, #2b0040, #0a0014);
+    font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    min-height: 100vh;
+    padding-top: 60px;
+}
+
+/* Fælles knap-design */
+button {
+    background: linear-gradient(135deg, #ff2ad4, #7f00ff);
+    color: white;
+
+    border: none;
+    border-radius: 50px;
+
+    padding: 15px 40px;
+    font-size: 18px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 0 10px #ff2ad4,
+        0 0 30px #7f00ff;
+
+    transition: all 0.2s ease-in-out;
+}
+
+/* Hover-effekt */
+button:hover {
+    transform: scale(1.08);
+    box-shadow:
+        0 0 20px #ff2ad4,
+        0 0 50px #7f00ff;
+}
+
+/* Når man klikker */
+button:active {
+    transform: scale(0.95);
+}
+
+/* Start-knap (lidt ekstra power) */
+#startKnap {
+    background: linear-gradient(135deg, #00ffcc, #00b3ff);
+    box-shadow:
+        0 0 15px #00ffcc,
+        0 0 40px #00b3ff;
+}
+
+/* Ny sang-knap */
+#nySang {
+    background: linear-gradient(135deg, #ffb000, #ff006a);
+    box-shadow:
+        0 0 15px #ffb000,
+        0 0 40px #ff006a;
+}
+
+/* Musik-afspiller (iframe) */
+#musikAfspiller {
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+}
