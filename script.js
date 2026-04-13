@@ -235,31 +235,6 @@ const sange = [
     }
 ];
 
-let afspillerElement = document.getElementById("musikAfspiller");
-let startKnap = document.getElementById("startKnap");
-
-function traekSang() {
-    let tilfaeldigtIndex = Math.floor(Math.random() * sange.length);
-    let valgtSang = sange[tilfaeldigtIndex];
-    afspillerElement.src = valgtSang.Link;
-}
-startKnap.addEventListener("click", traekSang);
-
-// Hent elementer
-const afslorKnap = document.getElementById("afsloerKnap");
-const aarstalsTekst = document.getElementById("aarstalTekst");
-const hemmeligBoks = document.getElementById("hemmeligBoks");
-
-// Eksempel-årstal (senere kan det komme fra en sang)
-const aarstallet = 1998;
-
-// Når man klikker "Afslør årstal"
-afslorKnap.addEventListener("click", () => {
-    aarstalsTekst.textContent = aarstallet;
-    hemmeligBoks.style.display = "none";
-});
-``
-
 // ===== ELEMENTER =====
 const startKnap = document.getElementById("startKnap");
 const nySangKnap = document.getElementById("nySangKnap");
@@ -268,33 +243,76 @@ const afslorKnap = document.getElementById("afsloerKnap");
 const musikAfspiller = document.getElementById("musikAfspiller");
 const hemmeligBoks = document.getElementById("hemmeligBoks");
 const aarstalsTekst = document.getElementById("aarstalTekst");
+const afspillerContainer = document.getElementById("afspillerContainer");
 
-// ===== AKTUEL SANG =====
+// ===== SPIL-TILSTAND =====
+let forrigeSang = null;
 let aktuelSang = null;
+let spillerSvar = null; // "før" | "efter"
 
-// ===== VÆLG NY SANG =====
-
+// ===== VÆLG TILFÆLDIG SANG =====
 function vaelgTilfaeldigSang() {
     const index = Math.floor(Math.random() * sange.length);
-    aktuelSang = sange[index];
 
+    if (aktuelSang) {
+        forrigeSang = aktuelSang;
+    }
+
+    aktuelSang = sange[index];
     musikAfspiller.src = aktuelSang.Link;
 
-    // nulstil visning
+    afspillerContainer.style.display = "block";
     hemmeligBoks.style.display = "block";
-    aarstalsTekst.textContent = "";
+
+    spillerSvar = null;
 }
 
-// ===== EVENTS =====
+// ===== PILETASTER =====
+document.addEventListener("keydown", (event) => {
+    if (!forrigeSang) return;
 
+    if (event.key === "ArrowLeft") {
+        spillerSvar = "før";
+        aarstalsTekst.textContent = "⬅️ FØR";
+    }
+
+    if (event.key === "ArrowRight") {
+        spillerSvar = "efter";
+        aarstalsTekst.textContent = "EFTER ➡️";
+    }
+});
+
+// ===== AFSLØR =====
+afslorKnap.addEventListener("click", () => {
+    if (!aktuelSang) {
+        alert("Start spillet først 🎵");
+        return;
+    }
+
+    // Første sang – bare vis årstal
+    if (!forrigeSang) {
+        aarstalsTekst.textContent = aktuelSang.Aarstal;
+        hemmeligBoks.style.display = "none";
+        return;
+    }
+
+    if (!spillerSvar) {
+        alert("Vælg før eller efter ⬅️➡️");
+        return;
+    }
+
+    hemmeligBoks.style.display = "none";
+    aarstalsTekst.textContent = aktuelSang.Aarstal;
+
+    const korrekt =
+        (spillerSvar === "før" && aktuelSang.Aarstal < forrigeSang.Aarstal) ||
+        (spillerSvar === "efter" && aktuelSang.Aarstal > forrigeSang.Aarstal);
+
+    setTimeout(() => {
+        alert(korrekt ? "✅ KORREKT!" : "❌ FORKERT!");
+    }, 100);
+});
+
+// ===== EVENTS =====
 startKnap.addEventListener("click", vaelgTilfaeldigSang);
 nySangKnap.addEventListener("click", vaelgTilfaeldigSang);
-
-afslorKnap.addEventListener("click", () => {
-    if (!aktuelSang) return;
-
-    aarstalsTekst.textContent = aktuelSang.Aarstal;
-    hemmeligBoks.style.display = "none";
-});
-``
-
