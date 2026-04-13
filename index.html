@@ -7,22 +7,42 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+
+    <!-- Start spil: vælger sang og viser årstal -->
     <button id="startKnap">Start spillet</button>
+
+    <!-- Ny sang: viser lyserød boks -->
     <button id="nySangKnap">Ny sang</button>
+
     <br><br>
 
+    <!-- Afspiller-container (må ALDRIG skjules helt) -->
     <div id="afspillerContainer">
-        <iframe id="musikAfspiller" src="" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-        
+
+        <!-- Spotify-afspiller -->
+        <iframe
+            id="musikAfspiller"
+            src=""
+            width="300"
+            height="80"
+            frameborder="0"
+            allow="encrypted-media">
+        </iframe>
+
+        <!-- ✅ Lyserød hemmelig boks (vises kun ved Ny sang) -->
         <div id="hemmeligBoks"></div>
+
     </div>
 
     <br>
+
+    <!-- Afslør-knap -->
     <button id="afsloerKnap">Afslør årstal</button>
+
+    <!-- Årstal vises her -->
     <h2 id="aarstalTekst"></h2>
 
     <script src="script.js" defer></script>
 </body>
-
+</html>
 
