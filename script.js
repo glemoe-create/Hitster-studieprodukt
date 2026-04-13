@@ -259,3 +259,42 @@ afslorKnap.addEventListener("click", () => {
     hemmeligBoks.style.display = "none";
 });
 ``
+
+// ===== ELEMENTER =====
+const startKnap = document.getElementById("startKnap");
+const nySangKnap = document.getElementById("nySangKnap");
+const afslorKnap = document.getElementById("afsloerKnap");
+
+const musikAfspiller = document.getElementById("musikAfspiller");
+const hemmeligBoks = document.getElementById("hemmeligBoks");
+const aarstalsTekst = document.getElementById("aarstalTekst");
+
+// ===== AKTUEL SANG =====
+let aktuelSang = null;
+
+// ===== VÆLG NY SANG =====
+
+function vaelgTilfaeldigSang() {
+    const index = Math.floor(Math.random() * sange.length);
+    aktuelSang = sange[index];
+
+    musikAfspiller.src = aktuelSang.Link;
+
+    // nulstil visning
+    hemmeligBoks.style.display = "block";
+    aarstalsTekst.textContent = "";
+}
+
+// ===== EVENTS =====
+
+startKnap.addEventListener("click", vaelgTilfaeldigSang);
+nySangKnap.addEventListener("click", vaelgTilfaeldigSang);
+
+afslorKnap.addEventListener("click", () => {
+    if (!aktuelSang) return;
+
+    aarstalsTekst.textContent = aktuelSang.Aarstal;
+    hemmeligBoks.style.display = "none";
+});
+``
+
